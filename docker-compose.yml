@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  db:
+    container_name: Reception-Register-MongoDB
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "27017:27017"
+    image: mongo:latest
+    restart: always
+    volumes:
+      - ./mongodb/sdb:/data/db
+  api:
+    build: .
+    command: bash -c "cd reception_register_webui && npm install @esbuild/linux-x64 --location=project && npm run build && cd ../reception_register_api && npm run build && npm start"
+    container_name: Reception-Register-API
+    depends_on:
+      - db
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    image: reception-register:api
+    restart: always
+    volumes:
+      - .:/reception-register
+  nginx:
+    container_name: Reception-Register-NGINX
+    depends_on:
+      - api
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./certs:/etc/ssl/certs
+      - ./reception_register_webui/dist:/var/www/html
