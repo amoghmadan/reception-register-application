@@ -1,4 +1,7 @@
-import {accountLoginValidator} from './accounts.validator';
+import {
+  accountLoginValidator,
+  createSuperUserValidator,
+} from './accounts.validator';
 import {
   registerCreateValidator,
   registerPartialUpdateValidator,
@@ -7,6 +10,7 @@ import {
 
 export {
   accountLoginValidator,
+  createSuperUserValidator,
   registerCreateValidator,
   registerPartialUpdateValidator,
   registerUpdateValidator,
