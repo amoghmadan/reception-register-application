@@ -2,7 +2,7 @@ version: "3"
 
 services:
   db:
-    container_name: Reception-Register-MongoDB
+    container_name: Reception-Register-DB
     extra_hosts:
       - "host.docker.internal:host-gateway"
     ports:
@@ -23,8 +23,8 @@ services:
     restart: always
     volumes:
       - .:/reception-register
-  nginx:
-    container_name: Reception-Register-NGINX
+  proxy:
+    container_name: Reception-Register-Proxy
     depends_on:
       - api
     image: nginx:latest
