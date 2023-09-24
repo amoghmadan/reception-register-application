@@ -3,14 +3,14 @@ import {Router} from 'express';
 import accountRouter from './accounts.router';
 import registerRouter from './register.router';
 
-const urlpatterns = new Map([
+const urlPatterns = new Map([
   ['/accounts', accountRouter],
   ['/register', registerRouter],
 ]);
 
 // eslint-disable-next-line new-cap
 const v1Router = Router();
-urlpatterns.forEach((router, path) => {
+urlPatterns.forEach((router, path) => {
   v1Router.use(path, router);
 });
 
