@@ -6,13 +6,15 @@ import {getRequestListener} from '../src/cli/bootstrap';
 import {User, Register} from '../src/models';
 import {generateKey} from '../src/utilities/token';
 
+const EMAIL = 'test2.user@email.com';
+
 const app = getRequestListener();
 
 describe('Register API Tests', () => {
   beforeAll(async () => {
     await mongoose.connect(process.env.MONGODB_URI);
     await User.create({
-      email: 'test2.user@email.com',
+      email: EMAIL,
       firstName: 'Test 2',
       lastName: 'User',
       password: 'foo',
@@ -24,13 +26,13 @@ describe('Register API Tests', () => {
 
   afterAll(async () => {
     await Register.deleteMany({});
-    await User.deleteMany({});
+    await User.deleteOne({email: EMAIL});
     await mongoose.connection.close();
   });
 
   describe('POST /api/v1/register/entries', () => {
     it('Performs Create Register', async () => {
-      const user = await User.findOne({email: 'test2.user@email.com'});
+      const user = await User.findOne({email: EMAIL});
       const payload = {
         name: 'John Doe',
         company: 'Big One',

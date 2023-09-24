@@ -6,32 +6,32 @@ import {getRequestListener} from '../src/cli/bootstrap';
 import {User} from '../src/models';
 import {generateKey} from '../src/utilities/token';
 
+const EMAIL = 'test.user@email.com';
+const PASSWORD = 'foo';
+
 const app = getRequestListener();
 
 describe('Account API Tests', () => {
   beforeAll(async () => {
     await mongoose.connect(process.env.MONGODB_URI);
     await User.create({
-      email: 'test.user@email.com',
+      email: EMAIL,
       firstName: 'Test',
       lastName: 'User',
-      password: 'foo',
+      password: PASSWORD,
       isActive: true,
       dateJoined: new Date(),
     });
   });
 
   afterAll(async () => {
-    await User.deleteMany({});
+    await User.deleteOne({email: EMAIL});
     await mongoose.connection.close();
   });
 
   describe('POST /api/v1/accounts/login', () => {
     it('Performs Account Login', async () => {
-      const payload = {
-        email: 'test.user@email.com',
-        password: 'foo',
-      };
+      const payload = {email: EMAIL, password: PASSWORD};
 
       const response = await request(app)
           .post('/api/v1/accounts/login')
@@ -43,9 +43,7 @@ describe('Account API Tests', () => {
 
   describe('GET /api/v1/accounts/detail', () => {
     it('Retrieves Account Details', async () => {
-      const user = await User.findOne({
-        email: 'test.user@email.com',
-      });
+      const user = await User.findOne({email: EMAIL});
       user.token = {key: generateKey()};
       await user.save();
 
@@ -67,9 +65,7 @@ describe('Account API Tests', () => {
 
   describe('DELETE /api/v1/accounts/logout', () => {
     it('Performs Account Logout', async () => {
-      const user = await User.findOne({
-        email: 'test.user@email.com',
-      });
+      const user = await User.findOne({email: EMAIL});
       user.token = {key: generateKey()};
       await user.save();
 
