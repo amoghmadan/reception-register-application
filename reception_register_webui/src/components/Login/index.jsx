@@ -7,12 +7,28 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
+import { API, Browser } from "../../config";
+import { api } from "../../services/axios";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const performLogin = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log(data);
+    const formData = new FormData(event.currentTarget);
+    const payload = Object.fromEntries(formData);
+    const response = await api.post(API.V1.ACCOUNT_LOGIN, payload);
+    if (response.status !== 201) {
+      if (response.status > 399 && response.status < 500) {
+        alert(JSON.stringify(await response.data));
+      } else {
+        alert(JSON.stringify(await response.error));
+      }
+      return;
+    }
+    navigate(Browser.REGISTER);
   };
 
   return (

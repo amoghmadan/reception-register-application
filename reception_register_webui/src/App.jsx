@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { Browser } from "./constants";
+import { Browser } from "./config";
 import { Home, Http404, Register } from "./pages";
 
 export default function App() {
