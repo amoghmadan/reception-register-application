@@ -11,11 +11,15 @@ import {
  * @return {express.Response}
  */
 export async function accountLoginController(request, response) {
-  const data = await accountLoginService(request.body);
-  if (!data) {
-    return response.status(401).json({detail: 'Invalid credentials!'});
+  try {
+    const data = await accountLoginService(request.body);
+    if (!data) {
+      return response.status(401).json({detail: 'Invalid credentials!'});
+    }
+    return response.status(201).json(data);
+  } catch (err) {
+    return response.status(500).json(err);
   }
-  return response.status(201).json(data);
 }
 
 /**
@@ -36,6 +40,10 @@ export async function accountDetailController(request, response) {
  * @return {express.Response}
  */
 export async function accountLogoutController(request, response) {
-  const data = await accountLogoutService(request.user);
-  return response.status(204).json(data);
+  try {
+    const data = await accountLogoutService(request.user);
+    return response.status(204).json(data);
+  } catch (err) {
+    return response.status(500).json(err);
+  }
 }

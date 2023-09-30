@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 import Login from "./Login";
 
-export { Login };
+export { Footer, Login };

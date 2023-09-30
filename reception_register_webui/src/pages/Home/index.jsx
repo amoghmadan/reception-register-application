@@ -1,5 +1,10 @@
-import { Login } from "../../components";
+import { Footer, Login } from "../../components";
 
 export default function Home() {
-  return <Login></Login>;
+  return (
+    <>
+      <Login />
+      <Footer />
+    </>
+  );
 }
