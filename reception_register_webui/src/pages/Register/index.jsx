@@ -1,3 +1,10 @@
+import { GuardedLayout } from "../../layouts";
+import { Entry } from "../../containers";
+
 export default function Register() {
-  return <></>;
+  return (
+    <GuardedLayout>
+      <Entry />
+    </GuardedLayout>
+  );
 }
