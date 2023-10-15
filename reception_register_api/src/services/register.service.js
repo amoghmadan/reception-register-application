@@ -18,8 +18,8 @@ import {
  * @return {Register[]}
  */
 export async function registerListEntryService(queryParams) {
-  const filters = {user: user._id};
-  let {date} = query;
+  const filters = {};
+  let {date} = queryParams;
   if (!date) {
     date = new Date().toISOString().split('T')[0];
   }
@@ -38,11 +38,11 @@ export async function registerListEntryService(queryParams) {
  * @param {User} user
  * @return {Register}
  */
-export async function registerCreateEntryService(payload, user) {
+export async function registerCreateEntryService(payload, currentUser) {
   const validatedData = await registerCreateValidator.validateAsync(payload);
   const data = await registerCreateEntryRepository({
     ...validatedData,
-    user: user._id,
+    user: currentUser._id,
   });
   return data;
 }
