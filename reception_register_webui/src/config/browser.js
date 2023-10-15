@@ -9,7 +9,7 @@ const Browser = {
     HTTP_404: "/404",
     LOGO_PNG: "/logo.png",
     LOGO_SVG: "/logo.svg",
-    REGISTER: "/register",
+    ENTRY: "/entries",
     ROOT: "/",
 };
 
