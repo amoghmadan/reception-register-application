@@ -1,3 +1,4 @@
+import { useTheme } from "@emotion/react";
 import {
   Avatar,
   Box,
@@ -7,10 +8,9 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 
-import { API, Browser } from "../../config";
+import { API, Browser, LOCAL_STORAGE_KEY } from "../../config";
 import { api } from "../../services/axios";
 
 export default function Login() {
@@ -30,7 +30,9 @@ export default function Login() {
       }
       return;
     }
-    navigate(Browser.REGISTER);
+    const data = await response.data;
+    localStorage.setItem(LOCAL_STORAGE_KEY, data.token);
+    navigate(Browser.ENTRY);
   };
 
   return (
