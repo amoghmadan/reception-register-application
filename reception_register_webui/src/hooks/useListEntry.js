@@ -18,10 +18,10 @@ export default function useListRegister() {
           queryParams.append(pair[0], pair[1]);
         });
         url += `?${queryParams.toString()}`;
+        const response = await api.get(url);
+        const data = await response.data;
+        setEntryList(data);
       }
-      const response = await api.get(url);
-      const data = await response.data;
-      setEntryList(data);
       setLoading(false);
     };
     getListEntry();
