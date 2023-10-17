@@ -9,17 +9,20 @@ import {
 } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import { API, Browser } from "../../config";
 import { api } from "../../services/axios";
+import { toggleTheme } from "../../state/redux/theme";
 import { logoutUser } from "../../state/redux/user";
-import { useDispatch } from "react-redux";
 
 export default function Navbar() {
   const navigationItems = [{ title: "Register", linkTo: Browser.ENTRY }];
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const mode = useSelector((state) => state.theme.value);
+  const user = useSelector((state) => state.user.detail);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleLogout = async () => {
@@ -85,6 +88,18 @@ export default function Navbar() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
+              <MenuItem onClose={handleClose}>
+                {user?.firstName} {user?.lastName}
+              </MenuItem>
+              <hr />
+              <MenuItem
+                onClick={() => {
+                  dispatch(toggleTheme());
+                  handleClose();
+                }}
+              >
+                Switch to {mode === "light" ? "Dark" : "Light"} Mode
+              </MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </div>
