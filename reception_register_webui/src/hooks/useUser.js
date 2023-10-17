@@ -16,7 +16,7 @@ export default function useUser() {
       setLoading(true);
       const response = await api.get(API.V1.ACCOUNT_DETAIL);
       const data = await response.data;
-      dispatch(loginUser({ payload: data }));
+      dispatch(loginUser(data));
       setLoading(false);
     };
     getRetrieveUser();
