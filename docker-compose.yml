@@ -10,19 +10,32 @@ services:
     image: mongo:latest
     restart: always
     volumes:
-      - ./mongodb/sdb:/data/db
+      - ./mongodb/db:/data/db
   api:
-    build: .
-    command: bash -c "cd reception_register_webui && npm install @esbuild/linux-x64 --location=project && npm run build && cd ../reception_register_api && npm run build && npm start"
+    build: ./reception_register_api
+    command: bash -c "npm run build && npm start bootstrap"
     container_name: Reception-Register-API
     depends_on:
       - db
     extra_hosts:
       - "host.docker.internal:host-gateway"
     image: reception-register:api
+    ports:
+      - "8000:8000"
     restart: always
     volumes:
-      - .:/reception-register
+      - /reception-register/node_modules
+      - ./reception_register_api:/reception-register
+  webui:
+    build: ./reception_register_webui
+    command: npm run build
+    container_name: Reception-Register-Web-UI
+    depends_on:
+      - db
+    image: reception-register:webui
+    volumes:
+      - /reception-register/node_modules
+      - ./reception_register_webui:/reception-register
   proxy:
     container_name: Reception-Register-Proxy
     depends_on:
