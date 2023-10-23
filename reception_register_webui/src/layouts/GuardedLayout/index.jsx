@@ -1,5 +1,4 @@
 import PropTypes from "prop-types";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Footer, Navbar } from "../../components";
@@ -10,15 +9,7 @@ export default function GuardedLayout(props) {
   const navigate = useNavigate();
   const [user, loading] = useUser();
 
-  useEffect(() => {
-    const checkAuth = () => {
-      if (user === undefined && loading) {
-        navigate(Browser.ROOT);
-      }
-    };
-    checkAuth();
-  }, []);
-
+  if (user === undefined && loading) navigate(Browser.ROOT);
   if (loading) return <>Loading...</>;
   return (
     <>
