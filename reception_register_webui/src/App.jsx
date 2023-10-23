@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { Browser } from "./config";
-import { Home, Http404, Register } from "./pages";
+import { Entry, Home, Http404, Register } from "./pages";
 import { dark, light } from "./utils/themes";
 
 export default function App() {
@@ -16,7 +16,8 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path={Browser.ROOT} element={<Home />}></Route>
-            <Route path={Browser.ENTRY} element={<Register />}></Route>
+            <Route path={Browser.ENTRIES} element={<Register />}></Route>
+            <Route path={Browser.ENTRY} element={<Entry />}></Route>
             <Route path={Browser.HTTP_404} element={<Http404 />}></Route>
             <Route path={Browser.ASTERISK} element={<Http404 />}></Route>
           </Routes>
