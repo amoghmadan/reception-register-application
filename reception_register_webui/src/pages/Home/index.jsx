@@ -13,7 +13,7 @@ export default function Home() {
       setLoading(true);
       const token = localStorage.getItem(LOCAL_STORAGE_KEY);
       if (token) {
-        navigate(Browser.ENTRY);
+        navigate(Browser.ENTRIES);
       }
       setLoading(false);
     };
