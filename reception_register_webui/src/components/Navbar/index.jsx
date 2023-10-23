@@ -18,7 +18,7 @@ import { toggleTheme } from "../../state/redux/theme";
 import { logoutUser } from "../../state/redux/user";
 
 export default function Navbar() {
-  const navigationItems = [{ title: "Register", linkTo: Browser.ENTRY }];
+  const navigationItems = [{ title: "Register", linkTo: Browser.ENTRIES }];
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const mode = useSelector((state) => state.theme.value);
