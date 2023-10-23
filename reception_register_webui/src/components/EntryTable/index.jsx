@@ -8,6 +8,9 @@ import {
   TableRow,
 } from "@mui/material";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
+
+import { Browser } from "../../config";
 import { ListEntryContext } from "../../state/context/ListEntryProvider";
 
 export default function EntryTable() {
@@ -55,7 +58,11 @@ export default function EntryTable() {
                   key={row._id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell align="center">{index + 1}</TableCell>
+                  <TableCell align="center">
+                    <Link to={`${Browser.ENTRIES}/${row._id}`}>
+                      {index + 1}
+                    </Link>
+                  </TableCell>
                   <TableCell align="center">{row.name}</TableCell>
                   <TableCell align="center">{row.mobile}</TableCell>
                   <TableCell align="center">{row.personToMeet}</TableCell>
