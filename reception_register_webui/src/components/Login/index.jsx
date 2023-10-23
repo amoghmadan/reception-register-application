@@ -32,7 +32,7 @@ export default function Login() {
     }
     const data = await response.data;
     localStorage.setItem(LOCAL_STORAGE_KEY, data.token);
-    navigate(Browser.ENTRY);
+    navigate(Browser.ENTRIES);
   };
 
   return (
