@@ -1,4 +1,4 @@
-import { LOCAL_STORAGE_KEY } from "../../config";
+import { Browser, LOCAL_STORAGE_KEY } from "../../config";
 
 const onRequest = (config) => {
   const token = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -34,14 +34,15 @@ const onResponseError = (error) => {
       case 400:
         break;
       case 401:
-        alert("Unauthorized");
         localStorage.clear();
+        window.location = Browser.ROOT;
         break;
       case 403:
-        alert("Forbidden");
         localStorage.clear();
+        window.location = Browser.ROOT;
         break;
       case 404:
+        window.location = Browser.HTTP_404;
         break;
       case 500:
         break;
