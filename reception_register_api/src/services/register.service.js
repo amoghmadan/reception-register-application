@@ -35,7 +35,7 @@ export async function registerListEntryService(queryParams) {
 /**
  * Create New Register Entry Repository
  * @param {Object} payload
- * @param {User} user
+ * @param {User} currentUser
  * @return {Register}
  */
 export async function registerCreateEntryService(payload, currentUser) {
